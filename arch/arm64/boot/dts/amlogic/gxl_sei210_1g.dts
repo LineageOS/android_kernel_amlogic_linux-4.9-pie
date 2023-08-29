@@ -18,7 +18,7 @@
 /dts-v1/;
 
 #include "mesongxl.dtsi"
-#include "partition_mbox_normal_sei32bit.dtsi"
+#include "partition_mbox_normal_P_32_sei.dtsi"
 / {
 	model = "Amlogic";
 	amlogic-dt-id = "gxl_sei210_1g";
@@ -161,13 +161,13 @@
 
 	wifi_pwm_conf:wifi_pwm_conf{
 		pwm_channel1_conf {
-			pwms = <&pwm_ef MESON_PWM_0 30541 0>;
-			duty-cycle = <15270>;
+			pwms = <&pwm_ef MESON_PWM_0 30040 0>;
+			duty-cycle = <15020>;
 			times = <8>;
 		};
 		pwm_channel2_conf {
-			pwms = <&pwm_ef MESON_PWM_2 30500 0>;
-			duty-cycle = <15250>;
+			pwms = <&pwm_ef MESON_PWM_2 30030 0>;
+			duty-cycle = <15015>;
 			times = <12>;
 		};
 	};
@@ -389,8 +389,7 @@
 			compatible = "amlogic, gxbb-eth-dwmac";
 			reg = <0x0 0xc9410000 0x0 0x10000
 			0x0 0xc8834540 0x0 0x8
-			0x0 0xc8834558 0x0 0xc
-			0x0 0xc1104408 0x0 0x4>;
+			0x0 0xc8834558 0x0 0xc>;
 			interrupts = <0 8 1>;
 			pinctrl-names = "external_eth_pins";
 			pinctrl-0 = <&external_eth_pins>;
@@ -573,6 +572,12 @@
 		fr_auto_policy = <0>;
 	};
 
+	vdac {
+		compatible = "amlogic, vdac";
+		dev_name = "vdac";
+		status = "okay";
+	};
+
 	cvbsout {
 		compatible = "amlogic, cvbsout-gxl";
 		dev_name = "cvbsout";
@@ -725,8 +730,8 @@
 		status = "okay";
 		scan_period = <20>;
 		key_num = <1>;
-		key_name = "power";
-		key_code = <116>;
+		key_name = "DPAD_DOWN";
+		key_code = <108>;
 		key-gpios = <&gpio_ao  GPIOAO_2  GPIO_ACTIVE_HIGH>;
 		detect_mode = <0>;/*0:polling mode, 1:irq mode*/
 	};
@@ -1075,7 +1080,7 @@
 		compatible = "amlogic, unifykey";
 		status = "ok";
 
-		unifykey-num = <17>;
+		unifykey-num = <16>;
 		unifykey-index-0 = <&keysn_0>;
 		unifykey-index-1 = <&keysn_1>;
 		unifykey-index-2 = <&keysn_2>;
@@ -1092,7 +1097,6 @@
 		unifykey-index-13= <&keysn_13>;
 		unifykey-index-14= <&keysn_14>;
 		unifykey-index-15= <&keysn_15>;
-		unifykey-index-16= <&keysn_16>;
 
 		keysn_0: key_0{
 			key-name = "usid";
@@ -1177,11 +1181,6 @@
 			key-device = "normal";
 			key-permit = "read","write","del";
 		};
-		keysn_16:key_16{
-			key-name = "netflix_mgkid";
-			key-device = "secure";
-			key-permit = "read","write","del";
-		};
 	};//End unifykey
 
 };
@@ -1211,4 +1210,3 @@
 	delay_control = <0x15>;
 	ssctl = <0>;
 };
-

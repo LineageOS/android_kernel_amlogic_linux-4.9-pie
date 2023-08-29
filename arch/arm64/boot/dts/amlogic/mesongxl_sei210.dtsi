@@ -133,17 +133,21 @@
 		bit_mode=<12>;
 		bit_resolution=<0>;
 	};
-
 	arm_pmu {
 		compatible = "arm,armv8-pmuv3";
-		/* clusterb-enabled; */
-		interrupts = <GIC_SPI 137 IRQ_TYPE_LEVEL_HIGH>;
-		reg = <0x0 0xc8834680 0x0 0x4>;
-		cpumasks = <0xf>;
+		interrupts = <0 137 4>;
+		reg = <0x0 0xc8834400 0 0x1000>;
+
+		/* addr = base + offset << 2 */
+		sys_cpu_status0_offset = <0xa0>;
+
+		sys_cpu_status0_pmuirq_mask = <0xf>;
+
 		/* default 10ms */
-		relax-timer-ns = <10000000>;
+		relax_timer_ns = <10000000>;
+
 		/* default 10000us */
-		max-wait-cnt = <10000>;
+		max_wait_cnt = <10000>;
 	};
 
 	gic: interrupt-controller@2c001000 {
@@ -161,12 +165,11 @@
 		method = "smc";
 	};
 
-	aml_pm {
+	meson_suspend:pm{
 		compatible = "amlogic, pm";
-		status = "okay";
 		device_name = "aml_pm";
-		debug_reg = <0xc81000a8>;
-		exit_reg = <0xc810023c>;
+		reg = <0x0 0xc81000a8 0x0 0x4
+			0x0 0xc810023c 0x0 0x4>;
 	};
 
 	secmon {
@@ -241,13 +244,15 @@
 	jtag {
 		compatible = "amlogic, jtag";
 		status = "okay";
-		select = "disable"; /* disable/apao/apee */
-		/* both sets of jtags for the GXL platform */
-		/* are in the ee domain, this is named apao */
-		/* just to match the jtag driver */
-		pinctrl-names="jtag_apao_pins", "jtag_apee_pins";
-		pinctrl-0=<&jtag_a_pins>;
-		pinctrl-1=<&jtag_b_pins>;
+		select = "apao"; /* disable/apao/apee */
+		jtagao-gpios = <&gpio   GPIOH_6         0
+				&gpio   GPIOH_7         0
+				&gpio   GPIOH_8         0
+				&gpio   GPIOH_9         0>;
+		jtagee-gpios = <&gpio   CARD_0          0
+				&gpio   CARD_1          0
+				&gpio   CARD_2          0
+				&gpio   CARD_3          0>;
 	};
 
 	mailbox: mhu@c883c400 {
@@ -543,18 +548,6 @@
 			ranges = <0x0 0x0 0x0 0xd0000000 0x0 0x200000>;
 		};
 	}; /* end of soc */
-
-	vdac {
-		compatible = "amlogic, vdac-gxl";
-		status = "okay";
-	};
-
-	defendkey: defendkey {
-		compatible = "amlogic, defendkey";
-		reg = <0x0 0xc8834500 0x0 0x4>; /*RNG_USR_DATA*/
-		mem_size = <0x0 0x100000>;
-		status = "okay";
-	};
 }; /* end of root */
 
 &pinctrl_aobus {
@@ -642,23 +635,23 @@
 		};
 	};
 
-	jtag_a_pins:jtag_a_pin {
+	jtag_apao_pins:jtag_apao_pin {
 		mux {
-			groups = "GPIOH_6",
-				"GPIOH_7",
-				"GPIOH_8",
-				"GPIOH_9";
-			function = "gpio_periphs";
+			groups = "jtag_tdi_0",
+				"jtag_tdo_0",
+				"jtag_clk_0",
+				"jtag_tms_0";
+			function = "jtag";
 		};
 	};
 
-	jtag_b_pins:jtag_b_pin {
+	jtag_apee_pins:jtag_apee_pin {
 		mux {
-			groups = "CARD_0",
-				"CARD_1",
-				"CARD_2",
-				"CARD_3";
-			function = "gpio_periphs";
+			groups ="jtag_tdi_1",
+				"jtag_tdo_1",
+				"jtag_clk_1",
+				"jtag_tms_1";
+			function = "jtag";
 		};
 	};
 
@@ -1318,6 +1311,14 @@
 		clocks = <&xtal>,<&xtal>,<&xtal>,<&xtal>;
 		clock-names = "clkin0","clkin1","clkin2","clkin3";
 		status = "disabled";
+	};
+	ddr_bandwidth {
+		compatible = "amlogic, ddr-bandwidth";
+		status = "okay";
+		reg = <0x0 0xc8838000 0x0 0x100
+		       0x0 0xc8837000 0x0 0x100>;
+		interrupts = <0 52 1>;
+		interrupt-names = "ddr_bandwidth";
 	};
 };
 
