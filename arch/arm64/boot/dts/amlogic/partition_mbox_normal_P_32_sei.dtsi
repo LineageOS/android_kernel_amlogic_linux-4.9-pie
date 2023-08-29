@@ -7,7 +7,7 @@
  *
  */
 
-#include "firmware_normal.dtsi"
+#include "firmware_avb_system.dtsi"
 
 / {
     partitions: partitions{
