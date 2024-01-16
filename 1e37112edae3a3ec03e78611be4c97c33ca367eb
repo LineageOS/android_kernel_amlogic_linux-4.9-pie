@@ -22,6 +22,30 @@
       },
       "revId": "1e37112edae3a3ec03e78611be4c97c33ca367eb",
       "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "78184f52_0f47e7e0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 16185
+      },
+      "writtenOn": "2024-01-16T23:41:07Z",
+      "side": 1,
+      "message": "ugh, that bit me on g12 as well. I should have caught that.",
+      "parentUuid": "749e27cb_65536386",
+      "range": {
+        "startLine": 7,
+        "startChar": 12,
+        "endLine": 7,
+        "endChar": 15
+      },
+      "revId": "1e37112edae3a3ec03e78611be4c97c33ca367eb",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
     }
   ],
   "submitRequirementResults": []
