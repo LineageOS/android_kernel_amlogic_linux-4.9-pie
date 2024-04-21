@@ -234,6 +234,30 @@
       },
       "revId": "90a41394c34c1d349b24e3b342c5c7397f5b0510",
       "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6f56d6a8_349a9cf0",
+        "filename": "arch/arm64/configs/meson64_defconfig",
+        "patchSetId": 32
+      },
+      "lineNbr": 640,
+      "author": {
+        "id": 16185
+      },
+      "writtenOn": "2024-04-21T20:03:56Z",
+      "side": 1,
+      "message": "removed in g12, killing",
+      "parentUuid": "c8b6b51d_801ef783",
+      "range": {
+        "startLine": 640,
+        "startChar": 0,
+        "endLine": 640,
+        "endChar": 22
+      },
+      "revId": "90a41394c34c1d349b24e3b342c5c7397f5b0510",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
     }
   ]
 }
