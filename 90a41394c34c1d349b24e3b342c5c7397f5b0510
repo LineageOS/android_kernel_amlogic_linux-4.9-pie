@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b9410a58_f6729cd7",
+        "filename": "arch/arm64/configs/meson64_defconfig",
+        "patchSetId": 32
+      },
+      "lineNbr": 366,
+      "author": {
+        "id": 16185
+      },
+      "writtenOn": "2024-04-21T19:32:45Z",
+      "side": 1,
+      "message": "harmless to add",
+      "range": {
+        "startLine": 366,
+        "startChar": 0,
+        "endLine": 366,
+        "endChar": 27
+      },
+      "revId": "90a41394c34c1d349b24e3b342c5c7397f5b0510",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "215d8037_f1362ff0",
+        "filename": "arch/arm64/configs/meson64_defconfig",
+        "patchSetId": 32
+      },
+      "lineNbr": 420,
+      "author": {
+        "id": 16185
+      },
+      "writtenOn": "2024-04-21T19:32:45Z",
+      "side": 1,
+      "message": "I think these are right to have?",
+      "range": {
+        "startLine": 412,
+        "startChar": 0,
+        "endLine": 420,
+        "endChar": 26
+      },
+      "revId": "90a41394c34c1d349b24e3b342c5c7397f5b0510",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b22fe672_ebcbfd5c",
+        "filename": "arch/arm64/configs/meson64_defconfig",
+        "patchSetId": 32
+      },
+      "lineNbr": 485,
+      "author": {
+        "id": 16185
+      },
+      "writtenOn": "2024-04-21T19:32:45Z",
+      "side": 1,
+      "message": "harmless to add",
+      "range": {
+        "startLine": 485,
+        "startChar": 0,
+        "endLine": 485,
+        "endChar": 24
+      },
+      "revId": "90a41394c34c1d349b24e3b342c5c7397f5b0510",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d8a312f3_6ecec0de",
+        "filename": "arch/arm64/configs/meson64_defconfig",
+        "patchSetId": 32
+      },
+      "lineNbr": 618,
+      "author": {
+        "id": 16185
+      },
+      "writtenOn": "2024-04-21T19:32:45Z",
+      "side": 1,
+      "message": "interesting, but the right thing is to leave enabled?",
+      "range": {
+        "startLine": 618,
+        "startChar": 0,
+        "endLine": 618,
+        "endChar": 20
+      },
+      "revId": "90a41394c34c1d349b24e3b342c5c7397f5b0510",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c8b6b51d_801ef783",
+        "filename": "arch/arm64/configs/meson64_defconfig",
+        "patchSetId": 32
+      },
+      "lineNbr": 640,
+      "author": {
+        "id": 16185
+      },
+      "writtenOn": "2024-04-21T19:32:45Z",
+      "side": 1,
+      "message": "harmless to add?",
+      "range": {
+        "startLine": 640,
+        "startChar": 0,
+        "endLine": 640,
+        "endChar": 22
+      },
+      "revId": "90a41394c34c1d349b24e3b342c5c7397f5b0510",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    }
+  ]
+}
