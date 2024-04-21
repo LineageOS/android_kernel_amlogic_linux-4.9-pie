@@ -24,6 +24,30 @@
       "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9b36c3e1_cf25aa67",
+        "filename": "arch/arm64/configs/meson64_defconfig",
+        "patchSetId": 32
+      },
+      "lineNbr": 366,
+      "author": {
+        "id": 16185
+      },
+      "writtenOn": "2024-04-21T19:41:26Z",
+      "side": 1,
+      "message": "confirmed",
+      "parentUuid": "b9410a58_f6729cd7",
+      "range": {
+        "startLine": 366,
+        "startChar": 0,
+        "endLine": 366,
+        "endChar": 27
+      },
+      "revId": "90a41394c34c1d349b24e3b342c5c7397f5b0510",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "215d8037_f1362ff0",
