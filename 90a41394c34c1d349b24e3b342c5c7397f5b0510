@@ -47,6 +47,30 @@
       "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8605b698_21f4396c",
+        "filename": "arch/arm64/configs/meson64_defconfig",
+        "patchSetId": 32
+      },
+      "lineNbr": 420,
+      "author": {
+        "id": 16185
+      },
+      "writtenOn": "2024-04-21T19:35:10Z",
+      "side": 1,
+      "message": "nope I guess lol commit 8d62b97a0c432e40de5efc259372bf9231cf8822\nAuthor: Xindong Xu \u003cxindong.xu@amlogic.com\u003e\nDate:   Fri Apr 24 10:42:39 2020 +0800\n\n    md: High security vulnerability in dm-anroid-verity [1/1]\n    \n    PD#SWPL-24864\n    \n    Problem:\n    High security vulnerability in dm-anroid-verity\n    \n    Solution:\n    we add this code for test.\n    It was improperly released, revert it.\n    Android avb code is ok after revert it.\n    Revert \"md: use dm-anroid-verity [3/4]\"\n    \n    This reverts commit 84edbc7284d824c43d14293d56e17d5d201cfd66.\n    \n    Verify:\n    franklin\n    \n    Change-Id: I8daa068475ee6d29b3ee8a5e8475b7594d71ce7d\n    Signed-off-by: Xindong Xu \u003cxindong.xu@amlogic.com\u003e",
+      "parentUuid": "215d8037_f1362ff0",
+      "range": {
+        "startLine": 412,
+        "startChar": 0,
+        "endLine": 420,
+        "endChar": 26
+      },
+      "revId": "90a41394c34c1d349b24e3b342c5c7397f5b0510",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b22fe672_ebcbfd5c",
