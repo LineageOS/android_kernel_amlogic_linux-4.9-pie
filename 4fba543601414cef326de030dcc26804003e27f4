@@ -140,6 +140,52 @@
       },
       "revId": "4fba543601414cef326de030dcc26804003e27f4",
       "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fbe070de_fb3049a4",
+        "filename": "arch/arm64/configs/meson64_defconfig",
+        "patchSetId": 6
+      },
+      "lineNbr": 389,
+      "author": {
+        "id": 16185
+      },
+      "writtenOn": "2024-04-21T05:17:03Z",
+      "side": 0,
+      "message": "uselsss to remove",
+      "range": {
+        "startLine": 384,
+        "startChar": 1,
+        "endLine": 389,
+        "endChar": 25
+      },
+      "revId": "4fba543601414cef326de030dcc26804003e27f4",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c5146d18_e8030761",
+        "filename": "arch/arm64/configs/meson64_defconfig",
+        "patchSetId": 6
+      },
+      "lineNbr": 650,
+      "author": {
+        "id": 16185
+      },
+      "writtenOn": "2024-04-21T05:17:03Z",
+      "side": 0,
+      "message": "useless to remove",
+      "range": {
+        "startLine": 646,
+        "startChar": 0,
+        "endLine": 650,
+        "endChar": 32
+      },
+      "revId": "4fba543601414cef326de030dcc26804003e27f4",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
     }
   ]
 }
