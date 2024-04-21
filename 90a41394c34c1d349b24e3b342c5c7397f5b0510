@@ -119,6 +119,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "efc4e57b_c69c76c1",
+        "filename": "arch/arm64/configs/meson64_defconfig",
+        "patchSetId": 32
+      },
+      "lineNbr": 618,
+      "author": {
+        "id": 16185
+      },
+      "writtenOn": "2024-04-21T19:41:12Z",
+      "side": 1,
+      "message": "https://github.com/LineageOS/android_kernel_amlogic_linux-4.9-pie/commit/859b2b4ba7ffc568dff059e7d1b6a18c946625d8",
+      "parentUuid": "d8a312f3_6ecec0de",
+      "range": {
+        "startLine": 618,
+        "startChar": 0,
+        "endLine": 618,
+        "endChar": 20
+      },
+      "revId": "90a41394c34c1d349b24e3b342c5c7397f5b0510",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c8b6b51d_801ef783",
         "filename": "arch/arm64/configs/meson64_defconfig",
         "patchSetId": 32
