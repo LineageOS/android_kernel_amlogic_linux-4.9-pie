@@ -1,5 +1,5 @@
 /*
- * arch/arm64/boot/dts/amlogic/g12b_a311d_w200_dscs9x.dts
+ * arch/arm64/boot/dts/amlogic/g12b_a311d_w200_b4g.dts
  *
  * Copyright (C) 2017 Amlogic, Inc. All rights reserved.
  *
@@ -17,13 +17,15 @@
 
 /dts-v1/;
 
-#include "partition_mbox_normal.dtsi"
+//#include "partition_mbox_normal_P_64_notdynamic.dtsi"
+//#include "partition_mbox_normal_P_32.dtsi"
+#include "partition_mbox_normal_P_64.dtsi"
 #include "mesong12b.dtsi"
 #include "mesong12b_skt-panel.dtsi"
 
 / {
 	model = "Amlogic";
-	amlogic-dt-id = "g12b_w200_b";
+	amlogic-dt-id = "g12b_w200_bx4g";
 	compatible = "amlogic, g12b";
 	interrupt-parent = <&gic>;
 	#address-cells = <2>;
@@ -46,7 +48,8 @@
 
 	memory@00000000 {
 		device_type = "memory";
-		linux,usable-memory = <0x0 0x000000 0x0 0x80000000>;
+//		linux,usable-memory = <0x0 0x000000 0x0 0x80000000>;
+		linux,usable-memory = <0x0 0x000000 0x0 0xf4ffffff>;
 	};
 
 	reserved-memory {
@@ -57,9 +60,10 @@
 		ramoops@0x07400000 {
 			compatible = "ramoops";
 			reg = <0x0 0x07400000 0x0 0x00100000>;
-			record-size = <0x8000>;
-			console-size = <0x8000>;
-			ftrace-size = <0x40000>;
+			record-size = <0x20000>;
+			console-size = <0x40000>;
+			ftrace-size = <0x80000>;
+			pmsg-size = <0x20000>;
 		};
 
 		secmon_reserved:linux,secmon {
@@ -82,7 +86,7 @@
 			reusable;
 			size = <0x0 0x800000>;
 			alignment = <0x0 0x400000>;
-			alloc-ranges = <0x0 0x7f800000 0x0 0x800000>;
+			alloc-ranges = <0x0 0xf0000000 0x0 0x800000>;
 		};
 		ion_cma_reserved:linux,ion-dev {
 			compatible = "shared-dma-pool";
@@ -120,7 +124,6 @@
 			compatible = "shared-dma-pool";
 			size = <0x0 0x0>;
 		};
-
 		codec_mm_cma:linux,codec_mm_cma {
 			compatible = "shared-dma-pool";
 			reusable;
@@ -163,7 +166,7 @@
 		isp_cma_reserved:linux,isp_cma {
 			compatible = "shared-dma-pool";
 			reusable;
-			status = "okay";
+			status = "disabled";
 			size = <0x0 0x06800000>;
 			alignment = <0x0 0x400000>;
 		};
@@ -175,6 +178,7 @@
 			alignment = <0x0 0x400000>;
 		};
 	};
+
 	galcore {
 		status = "okay";
 		memory-region = <&galcore_reserved>;
@@ -188,8 +192,17 @@
 			gpios=<&gpio_ao GPIOAO_11 GPIO_ACTIVE_HIGH>;
 			default-state ="on";
 		};
+		net_red {
+			label="net_red";
+			gpios=<&gpio_ao GPIOAO_8 GPIO_ACTIVE_LOW>;
+			default-state ="off";
+		};
+		net_green {
+			label="net_green";
+			gpios=<&gpio GPIOA_12 GPIO_ACTIVE_HIGH>;
+			default-state ="off";
+		};
 	};
-
 	cvbsout {
 		compatible = "amlogic, cvbsout-g12b";
 		dev_name = "cvbsout";
@@ -259,19 +272,19 @@
 		};
 	};
 
+	codec_mm {
+		compatible = "amlogic, codec, mm";
+		memory-region = <&codec_mm_cma &codec_mm_reserved>;
+		dev_name = "codec_mm";
+		status = "okay";
+	};
+
 	picdec_cma_reserved:linux,picdec {
 		compatible = "shared-dma-pool";
 		reusable;
 		size = <0x0>;
 		alignment = <0x0>;
 		linux,contiguous-region;
-	};
-
-	codec_mm {
-		compatible = "amlogic, codec, mm";
-		memory-region = <&codec_mm_cma &codec_mm_reserved>;
-		dev_name = "codec_mm";
-		status = "okay";
 	};
 
 	picdec {
@@ -336,11 +349,12 @@
 
 	gpio_keypad {
 		compatible = "amlogic, gpio_keypad";
-		status = "okay";
+		status = "disable";
 		scan_period = <20>;
 		key_num = <1>;
-		key_name = "power";
-		key_code = <116>;
+		key_name = "update_key";
+		key_code = <64>;
+		//hym8563 use AO_2 AO_3 AO_7
 		key-gpios = <&gpio_ao  GPIOAO_3  GPIO_ACTIVE_HIGH>;
 		detect_mode = <0>;/*0:polling mode, 1:irq mode*/
 	};
@@ -348,14 +362,14 @@
 	adc_keypad {
 		compatible = "amlogic, adc_keypad";
 		status = "okay";
-		key_name = "vol-", "vol+", "enter";
-		key_num = <3>;
+		key_name = "update_key";
+		key_num = <1>;
 		io-channels = <&saradc SARADC_CH2>;
 		io-channel-names = "key-chan-2";
-		key_chan = <SARADC_CH2 SARADC_CH2 SARADC_CH2>;
-		key_code = <114 115 28>;
-		key_val = <143 266 389>; //val=voltage/1800mV*1023
-		key_tolerance = <40 40 40>;
+		key_chan = <SARADC_CH2>;
+		key_code = <64>;
+		key_val = <0>; //val=voltage/1800mV*1023
+		key_tolerance = <40>;
 	};
 
 	unifykey{
@@ -549,10 +563,9 @@
 		compatible = "amlogic, g12a-sound-card";
 		aml-audio-card,name = "AML-AUGESOUND";
 
-
 		//aml-audio-card,aux-devs = <&amlogic_codec>;
 		/*avout mute gpio*/
-		avout_mute-gpios = <&gpio_ao GPIOAO_2 GPIO_ACTIVE_HIGH>;
+		//avout_mute-gpios = <&gpio_ao GPIOAO_2 GPIO_ACTIVE_HIGH>;
 		/*for audio effect ,eqdrc */
 		aml-audio-card,effect = <&audio_effect>;
 
@@ -571,9 +584,9 @@
 			tdmacpu: cpu {
 				sound-dai = <&aml_tdma>;
 				dai-tdm-slot-tx-mask =
-							<1 0 0 0 0 0 0 0>;
+							<1 1 1 1 1 1 1 1>;
 				dai-tdm-slot-rx-mask =
-							<1 0 0 0 0 0 0 0>;
+							<1 1 1 1 1 1 1 1>;
 				dai-tdm-slot-num = <8>;
 				dai-tdm-slot-width = <32>;
 				system-clock-frequency = <24576000>;
@@ -586,7 +599,7 @@
 		aml-audio-card,dai-link@1 {
 			format = "i2s";
 			mclk-fs = <256>;
-			//continuous-clock;
+			continuous-clock;
 			//bitclock-inversion;
 			//frame-inversion;
 			bitclock-master = <&aml_tdmb>;
@@ -611,47 +624,23 @@
 			};
 		};
 
-		aml-audio-card,dai-link@2 {
-			format = "i2s";
-			mclk-fs = <256>;
-			//continuous-clock;
-			//bitclock-inversion;
-			//frame-inversion;
-			bitclock-master = <&aml_tdmc>;
-			frame-master = <&aml_tdmc>;
+		//aml-audio-card,dai-link@3 {
+		//	mclk-fs = <64>;
 			/* suffix-name, sync with android audio hal
 			 * what's the dai link used for
 			 */
-			//suffix-name = "alsaPORT-tdm";
-			cpu {
-				sound-dai = <&aml_tdmc>;
-				dai-tdm-slot-tx-mask = <1 1>;
-				dai-tdm-slot-rx-mask = <1 1>;
-				dai-tdm-slot-num = <2>;
-				dai-tdm-slot-width = <32>;
-				system-clock-frequency = <12288000>;
-			};
-			codec {
-				sound-dai = <&dummy_codec &dummy_codec>;
-			};
-		};
-
-		aml-audio-card,dai-link@3 {
-			mclk-fs = <64>;
-			/* suffix-name, sync with android audio hal
-			 * what's the dai link used for
-			 */
-			suffix-name = "alsaPORT-pdm";
-			cpu {
-				sound-dai = <&aml_pdm>;
-			};
-			codec {
-				sound-dai = <&pdm_codec>;
-			};
-		};
+		//	suffix-name = "alsaPORT-pdm";
+		//	cpu {
+		//		sound-dai = <&aml_pdm>;
+		//	};
+		//	codec {
+		//		sound-dai = <&pdm_codec>;
+		//	};
+		//};
 
 		aml-audio-card,dai-link@4 {
 			mclk-fs = <128>;
+			continuous-clock;
 			/* suffix-name, sync with android audio hal
 			 * what's the dai link used for
 			 */
@@ -664,7 +653,6 @@
 				sound-dai = <&dummy_codec>;
 			};
 		};
-
 		aml-audio-card,dai-link@6 {
 			mclk-fs = <256>;
 			continuous-clock;
@@ -678,6 +666,7 @@
 			};
 		};
 	};
+
 	audiolocker: locker {
 		compatible = "amlogic, audiolocker";
 		clocks = <&clkaudio CLKID_AUDIO_LOCKER_OUT
@@ -779,7 +768,7 @@
 
 	sensor: sensor {
 		compatible = "soc, sensor";
-		status = "okay";
+		status = "disabled";
 		sensor-name = "imx290"; /*imx290;os08a10;imx227*/
 		pinctrl-names="default";
 		pinctrl-0=<&clk12_24_z_pins>;
@@ -792,9 +781,19 @@
 
 	iq: iq {
 		compatible = "soc, iq";
-		status = "okay";
+		status = "disabled";
 		sensor-name = "imx290"; /*imx290;os08a10;imx227*/
 	};
+
+		aml_vfd{
+				compatible = "amlogic,aml_vfd";
+				dev_name = "aml_vfd";
+				stb_gpio = <&gpio GPIOA_6  GPIO_ACTIVE_HIGH>;
+				clk_gpio = <&gpio GPIOA_8  GPIO_ACTIVE_HIGH>;
+				data_gpio = <&gpio GPIOA_9  GPIO_ACTIVE_HIGH>;
+				status = "okay";
+		};
+
 }; /* end of / */
 
 &i2c2 {
@@ -814,7 +813,7 @@
 };
 
 &isp {
-	status = "okay";
+	status = "disabled";
 	memory-region = <&isp_cma_reserved>;
 };
 
@@ -827,7 +826,7 @@
 	status = "okay";
 	display_size_default = <1920 1080 1920 2160 32>;
 	mem_size = <0x00800000 0x1980000 0x100000 0x100000 0x800000>;
-	logo_addr = "0x7f800000";
+	logo_addr = "0xf0000000";
 	mem_alloc = <0>;
 	pxp_mode = <0>; /** 0:normal mode 1:pxp mode */
 };
@@ -845,7 +844,7 @@
 	};
 
 &i2c0 {
-	status = "okay";
+	status = "disable";
 	pinctrl-names = "default";
 	pinctrl-0 = <&i2c0_master_pins2>;
 	clock-frequency = <400000>;
@@ -918,13 +917,25 @@
 		status = "disabled";
 	};
 };
-
+&i2c_AO	{
+	status = "ok";
+	pinctrl-names="default";
+	pinctrl-0=<&ao_i2c_master_pins1>;
+	hym8563: hym8563@51 {
+		compatible = "haoyu,hym8563";
+		reg = <0x51>;
+		interrupts = <13 IRQ_TYPE_EDGE_FALLING>;
+		//i2c_bus = "i2c_bus_c";
+		#clock-cells = <0>;
+		status = "okay";
+	};
+};
 &audiobus {
 	aml_tdma: tdma {
 		compatible = "amlogic, g12a-snd-tdma";
 		#sound-dai-cells = <0>;
 		dai-tdm-lane-slot-mask-in = <0 1>;
-		dai-tdm-lane-oe-slot-mask-out = <1 0>;
+		dai-tdm-oe-lane-slot-mask-out = <1 0>;
 		dai-tdm-clk-sel = <0>;
 		clocks = <&clkaudio CLKID_AUDIO_MCLK_A
 				&clkc CLKID_MPLL0>;
@@ -972,6 +983,7 @@
 		pinctrl-names = "tdm_pins";
 		pinctrl-0 = <&tdmc_mclk &tdmout_c &tdmin_c>;
 		mclk_pad = <1>;  /* 0: mclk_0; 1: mclk_1 */
+		status = "disabled";
 	};
 
 	tdmlb: tdm@3 {
@@ -993,7 +1005,7 @@
 		 */
 		lb-src-sel = <1>;
 
-		status = "okay";
+		status = "disabled";
 	};
 
 	aml_spdif: spdif {
@@ -1043,7 +1055,7 @@
 		pinctrl-names = "pdm_pins";
 		pinctrl-0 = <&pdmin>;
 		filter_mode = <1>; /* mode 0~4, defalut:1 */
-		status = "okay";
+		status = "disable";
 	};
 
 	loopback:loopback@0 {
@@ -1320,7 +1332,7 @@
 			 "MMC_CAP_ERASE",
 			 "MMC_CAP_CMD23",
 			 "MMC_CAP_DRIVER_TYPE_A";
-		caps2 = "MMC_CAP2_HS200", "MMC_CAP2_HS400";
+		caps2 = "MMC_CAP2_HS200";
 		f_min = <400000>;
 		f_max = <200000000>;
 	};
@@ -1445,9 +1457,13 @@
 };
 &ethmac {
 	status = "okay";
-	mc_val = <0x4be04>;
-
-	internal_phy=<1>;
+		pinctrl-names = "external_eth_pins";
+		pinctrl-0 = <&external_eth_pins>;
+		mc_val = <0x1629>;
+		cali_val = <0x60000>;
+		rx_delay = <1>;
+		auto_cali_idx = <0>;
+		internal_phy=<0>;
 };
 
 &uart_A {
