@@ -1318,6 +1318,32 @@ DEVICE_ATTR(sleep_status, S_IRUGO | S_IWUSR, sleepstatus_show,
 
 #endif /* CONFIG_USB_DWC_OTG_LPM_ENABLE */
 
+static int sw_mode = 1; //0:HOST mode 1:DEVICE mode
+
+static ssize_t usb_sw_mode_show(struct device *_dev,
+	struct device_attribute *attr, char *buf)
+{
+	return sprintf(buf, "sw_mode=%d [%s]\n",
+		sw_mode, sw_mode ? "DEVICE mode" : "HOST mode");
+}
+
+static ssize_t usb_sw_mode_store(struct device *_dev,
+	struct device_attribute *attr, const char *buf, size_t count)
+{
+	unsigned long val;
+
+	if (kstrtoul(buf, 10, &val) == 0)
+		sw_mode = val;
+	else
+		sw_mode = 0;
+
+	set_usb_mode(sw_mode);
+	return count;
+}
+
+DEVICE_ATTR(usb_sw_mode, 0644, usb_sw_mode_show,
+		   usb_sw_mode_store);
+
 /**
  * Global Debug Level Mask.
  */
@@ -1390,6 +1416,7 @@ void dwc_otg_attr_create(struct platform_device *pdev)
 	error = device_create_file(&pdev->dev, &dev_attr_enumspeed);
 	error = device_create_file(&pdev->dev, &dev_attr_hptxfsiz);
 	error = device_create_file(&pdev->dev, &dev_attr_hprt0);
+	error = device_create_file(&pdev->dev, &dev_attr_usb_sw_mode);
 	error = device_create_file(&pdev->dev, &dev_attr_debuglevel);
 	error = device_create_file(&pdev->dev, &dev_attr_version);
 	error = device_create_file(&pdev->dev, &dev_attr_remote_wakeup);
@@ -1453,6 +1480,7 @@ void dwc_otg_attr_remove(struct platform_device *pdev)
 	device_remove_file(&pdev->dev, &dev_attr_hcd_frrem);
 	device_remove_file(&pdev->dev, &dev_attr_rd_reg_test);
 	device_remove_file(&pdev->dev, &dev_attr_wr_reg_test);
+	device_remove_file(&pdev->dev, &dev_attr_usb_sw_mode);
 	device_remove_file(&pdev->dev, &dev_attr_debuglevel);
 	device_remove_file(&pdev->dev, &dev_attr_version);
 #ifdef CONFIG_USB_DWC_OTG_LPM

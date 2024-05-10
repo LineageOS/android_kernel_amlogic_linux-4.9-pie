@@ -380,6 +380,28 @@ static int amlogic_new_usb3_init(struct usb_phy *x)
 	return 0;
 }
 
+void set_usb_mode(int mode)
+{
+	unsigned long reg_addr;
+
+	if (!g_phy_v2)
+		return;
+	reg_addr = (unsigned long)g_phy_v2->usb2_phy_cfg;
+
+	if (mode == 0) {
+		amlogic_new_set_vbus_power(g_phy_v2, 1);
+		aml_new_usb_notifier_call(0);
+		set_mode(reg_addr, HOST_MODE);
+		pr_info("[%s]HOST_MODE\n", __func__);
+	} else {
+		set_mode(reg_addr, DEVICE_MODE);
+		aml_new_usb_notifier_call(1);
+		amlogic_new_set_vbus_power(g_phy_v2, 0);
+		pr_info("[%s]DEVICE_MODE\n", __func__);
+	}
+}
+EXPORT_SYMBOL(set_usb_mode);
+
 static void set_mode(unsigned long reg_addr, int mode)
 {
 	struct u2p_aml_regs_v2 u2p_aml_regs;
