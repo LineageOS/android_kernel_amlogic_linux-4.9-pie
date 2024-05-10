@@ -73,3 +73,9 @@ extern void dwc_otg_attr_create(struct platform_device *pdev);
 
 extern void dwc_otg_attr_remove(struct platform_device *pdev);
 #endif
+#ifndef DWC_OTG_ATTR_H
+#define DWC_OTG_ATTR_H
+
+extern void set_usb_mode(int mode);
+
+#endif /* DWC_OTG_ATTR_H */
