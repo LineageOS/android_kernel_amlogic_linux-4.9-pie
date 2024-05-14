@@ -13644,6 +13644,11 @@ M: Simon Zheng <simon.zheng@amlogic.com>
 F:	drivers/amlogic/media/common/ion_dev/*
 F:	include/linux/meson_ion.h
 
+AMLOGIC meson64 defconfig variants
+M:  Francesco "Dil3mm4" Manzo <dil3mm4.dev@gmail.com>
+F:  arch/arm64/configs/g12_variant_defconfig
+F:  arch/arm64/configs/meson64_tab_variant_defconfig
+
 AMLOGIC multimedia osd & ge2d
 M:	Pengcheng Chen <pengcheng.chen@amlogic.com>
 F:	drivers/amlogic/media/osd/*
