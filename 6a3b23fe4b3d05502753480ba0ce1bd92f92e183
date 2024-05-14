@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b59a2d1e_36e18cb8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 19390
+      },
+      "writtenOn": "2024-05-14T23:22:54Z",
+      "side": 1,
+      "message": "This stuff is kinda ugly.\nCleansed it as much as I could.",
+      "revId": "6a3b23fe4b3d05502753480ba0ce1bd92f92e183",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    }
+  ]
+}
