@@ -1916,6 +1916,8 @@ static int stmmac_open(struct net_device *dev)
 #ifdef TX_MONITOR
 	queue_delayed_work(moniter_tx_wq, &moniter_tx_worker, HZ);
 #endif
+	stmmac_release(ndev);
+	stmmac_open(ndev);
 	return 0;
 
 lpiirq_error:
